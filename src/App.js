@@ -4,7 +4,6 @@ import { Container, Wrapper } from "./Styles/globalStyles";
 import { ThemeProvider } from "styled-components";
 import Manipulator from "./Components/Manipulator";
 import Card from "./Components/Card";
-import disney from "./Assets/Disney castle skinny.jpeg";
 import products from "./Assets/data/products";
 const Theme = {
   Medium: "1000px",
@@ -19,20 +18,19 @@ const App = () => {
   }, []);
 
   const searchFilter = (searchTerm) => {
-    // Convert the search term to lowercase for case-insensitive search
     const lowercaseSearchTerm = searchTerm.toLowerCase();
-  
+
     const filteredProducts = products.filter((product) => {
-      // Convert the product name to lowercase for case-insensitive search
       const lowercaseProductName = product.productName.toLowerCase();
-  
-      // Check if the product name contains the search term
-      return lowercaseProductName.includes(lowercaseSearchTerm);
+      const lowercaseCategory = product.category.toLowerCase();
+      return (
+        lowercaseProductName.includes(lowercaseSearchTerm) ||
+        lowercaseCategory.includes(lowercaseSearchTerm)
+      );
     });
-  
+
     setSortedProduct(filteredProducts);
   };
-  
 
   const handleFilter = (options) => {
     console.log(options);
@@ -62,16 +60,18 @@ const App = () => {
           categories={["Sofa", "chair", "stool", "chaise", "classic"]}
         />
         <Wrapper>
-          {SortedProduct[0]? SortedProduct?.map((data) => (
-            <Card
-              key={data.id}
-              title={data.productName}
-              image={data.imgUrl}
-              category={data.category}
-              description={data.shortDesc}
-              price={data.price}
-            />
-          )):"No Items"}
+          {SortedProduct[0]
+            ? SortedProduct?.map((data) => (
+                <Card
+                  key={data.id}
+                  title={data.productName}
+                  image={data.imgUrl}
+                  category={data.category}
+                  description={data.shortDesc}
+                  price={data.price}
+                />
+              ))
+            : "No Items"}
         </Wrapper>
       </Container>
     </ThemeProvider>
