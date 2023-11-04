@@ -11,8 +11,7 @@ const Theme = {
 };
 const App = () => {
   const [SortedProduct, setSortedProduct] = useState([]);
-  const [filterOptions, setFilterOptions] = useState([]);
-  const [sortOption, setSortOption] = useState([]);
+
   useEffect(() => {
     setSortedProduct(products);
   }, []);
